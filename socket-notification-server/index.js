@@ -40,10 +40,10 @@ const io = new Server({
         })     
     })
     // console.log("connection successful");
-    socket.on("disconnect",()=>{
+    socket.on("disconnect",()=>{       
         removeUser(socket.id);
         // console.log("connection disconnected");
     })
  })
                      
- io.listen(9000); 
+ io.listen(9001); 
