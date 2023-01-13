@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '../Instance/AxiosInstance'
 import React,{useEffect,useState} from 'react'
 import {useContext} from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -35,7 +35,7 @@ function EditProfile() {
     useEffect(()=>{
       try{
         const userId = user.id
-        axios.get("http://localhost:4000/viewprofiledetails/"+userId,{
+        axios.get("/viewprofiledetails/"+userId,{
           headers: {
               "x-access-token": localStorage.getItem("token"),
           },
@@ -75,7 +75,7 @@ function EditProfile() {
         Data.append('user',user.id)
         const {  Images } = form
           if (Images) {
-              axios.post("http://localhost:4000/addprofilepic", Data,{
+              axios.post("/addprofilepic", Data,{
                 headers: {
                     "x-access-token": localStorage.getItem("token"),
                 },
@@ -101,7 +101,7 @@ function EditProfile() {
               try{
                 const userId = user.id
                 console.log(userDetails,'userDetails in submit function');
-                axios.post("http://localhost:4000/editprofile/"+userId,userDetails,{
+                axios.post("/editprofile/"+userId,userDetails,{
                   headers: {
                       "x-access-token": localStorage.getItem("token"),
                   },
@@ -131,7 +131,7 @@ function EditProfile() {
       </div>
 
       <div class="w-full p-8 mx-2 flex justify-center">
-        {profileDetails[0].Images?<img id="showImage" class="max-w-xs w-56 h-56 items-center border rounded-full" src={`/images/${profileDetails[0].Images}`} alt=""/>
+        {profileDetails[0].Images?<img id="showImage" class="max-w-xs w-56 h-56 items-center border rounded-full" src={`${axios.images}/${profileDetails[0].Images}`} alt=""/>
         : <img id="showImage" class="max-w-xs w-56 h-56 items-center border rounded-full" src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA0BrKaI0cwXl3-wpk6Fu2gMbrP1LKk6waAlhKhrTzTobcVlka34MsNf4Yp3k1tG4ufTY&usqp=CAU' alt=""/>
         }                         
         </div>
@@ -142,7 +142,7 @@ function EditProfile() {
         
     <div class="w-full md:w-3/5 bg-white lg:ml-4 shadow-2xl hover:shadow-gray-700">
       <div className='w-full justify-end flex p-1'>
-      <button className='text-black  ml-auto mr-2'>X</button>
+      <button className='text-black  ml-auto mr-2' onClick={()=>navigate('/user/profile/posts')}>X</button>
 
       </div>
       <div class="rounded  shadow p-6 m-5">

@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react'
-import axios from 'axios'
+import axios from '../Instance/AxiosInstance'
 import {useNavigate} from 'react-router-dom'
 import {useForm} from 'react-hook-form'
 
@@ -43,7 +43,7 @@ function Signup() {
 
             const {username,email,phone,password} = user
             if(username && email && phone && password){
-                axios.post("http://localhost:4000/signup",user).then((response)=>{
+                axios.post("/signup",user).then((response)=>{
                     console.log(response.data.msg);
                     if(response.data.msg=="User exist"){
                         setUserExist(!userExist)

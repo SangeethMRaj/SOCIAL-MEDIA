@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '../../Components/Instance/AxiosInstance'
 import React,{useEffect,useReducer} from 'react'
 import { useState } from 'react'
 import '../../Components/Header/AdminHeader.css'
@@ -11,7 +11,7 @@ function UserList() {
     console.log(user);
     useEffect(()=>{
         async function viewUser(){
-            const userData = await axios.get("http://localhost:4000/admin/users")
+            const userData = await axios.get("/admin/users")
             if(userData){
                 setUser(userData.data)
             }
@@ -30,7 +30,7 @@ function UserList() {
           }).then((result)=>{
             if(result.isConfirmed){
                 console.log(id);
-                axios.post("http://localhost:4000/admin/block/"+id)
+                axios.post("/admin/block/"+id)
                 setStatus(!status)
             }
           })
@@ -46,7 +46,7 @@ function UserList() {
             showCancelButton:true
           }).then((result)=>{
             if(result.isConfirmed){
-        axios.post("http://localhost:4000/admin/unblock/"+id)
+        axios.post("/admin/unblock/"+id)
         setStatus(!status)
     }
 })
@@ -62,7 +62,7 @@ function UserList() {
             showCancelButton:true
           }).then((result)=>{
             if(result.isConfirmed){
-        axios.post("http://localhost:4000/admin/verify/"+id)
+        axios.post("/admin/verify/"+id)
         setStatus(!status)
     }
 })

@@ -15,7 +15,9 @@ dotenv.config()
 
 mongoose.connect(process.env.DATABASE_ACCESS,()=>console.log('Database is connected'))
 
-app.use('/',userRouter)
-app.use('/admin',adminRoute)
+app.use('/images',express.static('public/images'))
+
+app.use('/api',userRouter)
+app.use('/api/admin',adminRoute)
 
 app.listen(4000,()=>console.log("server is connected"))

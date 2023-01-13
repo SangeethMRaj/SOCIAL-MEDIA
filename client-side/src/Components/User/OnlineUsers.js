@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '../Instance/AxiosInstance'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
@@ -12,7 +12,7 @@ function OnlineUsers({onlineUsers,currentId}) {
     const user = jwtdecode(localStorage.getItem('token'))
     useEffect(()=>{
         const userId = user?.id
-        axios.get("http://localhost:4000/followinglist/" + userId,{
+        axios.get("/followinglist/" + userId,{
             headers: {
                 "x-access-token": localStorage.getItem("token"),
             },

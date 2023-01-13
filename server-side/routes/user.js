@@ -36,8 +36,8 @@ router.get('/viewprofiledetails/:id',verifyJWT,userController.viewProfileDetails
 router.post('/editprofile/:id',verifyJWT,userController.updateProfile)
 
 router.get('/searchuser/:id',verifyJWT,userController.searchUser)
-
-router.post('/follow',verifyJWT,userController.follow) 
+       
+router.post('/follow',verifyJWT,userController.follow)         
 
 router.get('/statusfollow/:userId/:friendId',verifyJWT,userController.checkFollowUser)
 

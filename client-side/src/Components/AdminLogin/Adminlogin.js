@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import axios from 'axios';
+import axios from '../Instance/AxiosInstance';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 function Adminlogin() {
@@ -22,7 +22,7 @@ function Adminlogin() {
         const {username,password} = admin
         // if(username && password){
             console.log('inside if');
-            axios.post("http://localhost:4000/admin/login",admin).then((response)=>{
+            axios.post("/admin/login",admin).then((response)=>{
                 console.log('inside axios');
                 console.log(response.data.msg);
                 if(response.data.msg=="login"){

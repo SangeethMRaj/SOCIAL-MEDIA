@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import axios from '../Instance/AxiosInstance'
 import { AiFillDelete, AiOutlineClose, AiOutlineMore, AiOutlineSend } from 'react-icons/ai'
 import { useContext } from 'react'
 import { User, UserContext } from '../../Pages/Context/Context'
@@ -25,7 +25,7 @@ function CommentModal({ eachPost, viewPosts, socket }) {
 
     useEffect(() => {
         const Id = eachPost.userId
-        axios.get("http://localhost:4000/chatusers/" + Id, {
+        axios.get("/chatusers/" + Id, {
             headers: {
                 "x-access-token": localStorage.getItem("token"),
             },
@@ -55,7 +55,7 @@ function CommentModal({ eachPost, viewPosts, socket }) {
 
     const updateCaption = () => {
         const postId = eachPost._id
-        axios.post("http://localhost:4000/editcaption/" + postId, caption, {
+        axios.post("/editcaption/" + postId, caption, {
             headers: {
                 "x-access-token": localStorage.getItem("token"),
             },
@@ -78,7 +78,7 @@ function CommentModal({ eachPost, viewPosts, socket }) {
             if (result.isConfirmed) {
 
                 const postId = eachPost._id
-                axios.delete("http://localhost:4000/deletepost/" + postId, {
+                axios.delete("/deletepost/" + postId, {
                     headers: {
                         "x-access-token": localStorage.getItem("token"),
                     },
@@ -101,7 +101,7 @@ function CommentModal({ eachPost, viewPosts, socket }) {
         setComment('')
         if (comment) {
 
-            axios.post("http://localhost:4000/comment", id, {
+            axios.post("/comment", id, {
                 headers: {
                     "x-access-token": localStorage.getItem("token"),
                 },
@@ -128,7 +128,7 @@ function CommentModal({ eachPost, viewPosts, socket }) {
 
     useEffect(() => {
         const postId = eachPost._id
-        axios.get("http://localhost:4000/getcomment/" + postId, {
+        axios.get("/getcomment/" + postId, {
             headers: {
                 "x-access-token": localStorage.getItem("token"),
             },
@@ -138,12 +138,12 @@ function CommentModal({ eachPost, viewPosts, socket }) {
             navigate('/error')
         })
     }, [commentStatus])
-
+    console.log(getComment,'comment details');
     const deleteComment = (Id) => {
         const commentId = Id
         const postId = eachPost._id
         const id = { commentId, postId }
-        axios.post("http://localhost:4000/deletecomment", id, {
+        axios.post("/deletecomment", id, {
             headers: {
                 "x-access-token": localStorage.getItem("token"),
             },
@@ -161,7 +161,7 @@ function CommentModal({ eachPost, viewPosts, socket }) {
 
 
                         {<div className='w-full h-full flex justify-center items-center overflow-hidden '>
-                            <img src={`/images/${eachPost.Images}`} className='' alt="Free unsplash image" />
+                            <img src={`${axios.images}/${eachPost.Images}`} className='' alt="Free unsplash image" />
 
                         </div>}
 
@@ -183,7 +183,7 @@ function CommentModal({ eachPost, viewPosts, socket }) {
                                         <div className=' flex items-center gap-3 pb-4  ' >
                                             <div className='pb-1'>
                                                 <div className='w-[2rem] rounded-full border-main border-[1px] bg-secondary h-[2rem]' >
-                                                    {comment.commentList.Images ? <img className='w-[2rem] rounded-full border-main border-[1px] bg-secondary h-[2rem]' src={`/images/${comment.commentList.Images}`} alt="" /> :
+                                                    {comment.commentList.Images ? <img className='w-[2rem] rounded-full border-main border-[1px] bg-secondary h-[2rem]' src={`${axios.images}/${comment.commentList.Images}`} alt="" /> :
                                                         <img className='w-[2rem] rounded-full border-main border-[1px] bg-secondary h-[2rem]' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA0BrKaI0cwXl3-wpk6Fu2gMbrP1LKk6waAlhKhrTzTobcVlka34MsNf4Yp3k1tG4ufTY&usqp=CAU' alt="" />
                                                     }
                                                 </div>
@@ -195,9 +195,9 @@ function CommentModal({ eachPost, viewPosts, socket }) {
                                             </div>
                                             <div className='text-center flex'>
 
-                                                <div onClick={() => deleteComment(comment.comment._id)}>
+                                                {/* {<div onClick={() => deleteComment(comment.comment._id)}>
                                                     <AiFillDelete className='w-3 cursor-pointer' />
-                                                </div>
+                                                </div>} */}
                                             </div>
                                         </div>
                                     ))}

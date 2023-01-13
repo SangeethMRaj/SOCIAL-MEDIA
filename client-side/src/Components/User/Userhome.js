@@ -2,7 +2,7 @@ import React, { useState, useEffect, useReducer } from 'react'
 import UserHeader from '../Header/UserHeader'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import axios from '../Instance/AxiosInstance'
 import { useContext } from 'react'
 import { User, UserContext } from '../../Pages/Context/Context'
 import jwtdecode from 'jwt-decode'
@@ -61,7 +61,7 @@ function Userhome() {
             const id = { postId, userId }
             
            
-            axios.post("http://localhost:4000/likepost", id, {
+            axios.post("/likepost", id, {
                 headers: {
                     "x-access-token": localStorage.getItem("token"),
                 },
@@ -75,6 +75,7 @@ function Userhome() {
                 })
                
             }).catch((err)=>{
+                console.log('error');
                 navigate('/error')
             })
     }
@@ -85,7 +86,7 @@ function Userhome() {
             const userId = user.id
             const id = { postId, userId }
            
-            axios.post("http://localhost:4000/likepost", id, {
+            axios.post("/likepost", id, {
                 headers: {
                     "x-access-token": localStorage.getItem("token"),
                 },
@@ -101,7 +102,7 @@ function Userhome() {
 
 
     useEffect(() => {
-            axios.get("http://localhost:4000/viewpost", {
+            axios.get("/viewpost", {
                 headers: {
                     "x-access-token": localStorage.getItem("token"),
                 },
@@ -140,7 +141,7 @@ function Userhome() {
     }
 
     const authCheck = () => {
-        axios.get("http://localhost:4000/isUserAuth", {
+        axios.get("/isUserAuth", {
             headers: {
                 "x-access-token": localStorage.getItem("token"),
             },
@@ -165,7 +166,7 @@ function Userhome() {
             Data.append('user', user.id)
             const { caption, Images } = form
             if (caption, Images) {
-                axios.post("http://localhost:4000/addpost", Data, {
+                axios.post("/addpost", Data, {
                     headers: {
                         "x-access-token": localStorage.getItem("token"),
                     },
@@ -182,7 +183,7 @@ function Userhome() {
 
     const openModal = (postId) => {
         console.log(postId, 'id in comment click');
-        axios.get("http://localhost:4000/postdetails/" + postId, {
+        axios.get("/postdetails/" + postId, {
             headers: {
                 "x-access-token": localStorage.getItem("token"),
             },
@@ -192,7 +193,7 @@ function Userhome() {
         }).catch((err)=>{
             navigate('/error')
         })
-        // axios.get("http://localhost:4000/getcomment/"+postId,{
+        // axios.get("/getcomment/"+postId,{
         //     headers: {
         //         "x-access-token": localStorage.getItem("token"),
         //     },
@@ -205,7 +206,7 @@ function Userhome() {
         const userId = user.id
         const id = { userId, postId, comment }
         setComment('')
-        axios.post("http://localhost:4000/comment", id, {
+        axios.post("/comment", id, {
             headers: {
                 "x-access-token": localStorage.getItem("token"),
             },
@@ -224,7 +225,7 @@ function Userhome() {
         const userId = user.id
         console.log(reportPostId,userId,text,'check,check');
         const details = {reportPostId,userId}
-        axios.post("http://localhost:4000/report/"+text,details, {
+        axios.post("/report/"+text,details, {
             headers: {
                 "x-access-token": localStorage.getItem("token"),
             },
@@ -321,7 +322,7 @@ function Userhome() {
                                     <div class="flex  justify-between w-full">
                                         <div className='flex'>
                                             <div class="rounded-full h-8 w-8 bg-gray-500 flex items-center justify-center overflow-hidden">
-                                                {post.userId.Images ? <img src={`/images/${post.userId.Images}`} alt="profilepic" />
+                                                {post.userId.Images ? <img src={`${axios.images}/${post.userId.Images}`} alt="profilepic" />
                                                     : <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA0BrKaI0cwXl3-wpk6Fu2gMbrP1LKk6waAlhKhrTzTobcVlka34MsNf4Yp3k1tG4ufTY&usqp=CAU' alt="profilepic" />
                                                 }
                                             </div>
@@ -468,7 +469,7 @@ function Userhome() {
                                     </div>
                                     {/* <span class="px-2 hover:bg-gray-300 cursor-pointer rounded"><i class="fas fa-ellipsis-h pt-2 text-lg"></i></span> */}
                                 </div>
-                                <img className="w-full bg-cover" src={`/images/${post.Images}`} />
+                                <img className="w-full bg-cover" src={`${axios.images}/${post.Images}`} />
                                 <div class="px-3 pb-2">
 
                                     <div class="pt-2 flex cursor-pointer">

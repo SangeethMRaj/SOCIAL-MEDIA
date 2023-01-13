@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '../Instance/AxiosInstance'
 import React, { useState, useEffect } from 'react'
 import { useContext } from 'react'
 import { UserContext } from '../../Pages/Context/Context'
@@ -22,7 +22,7 @@ function UserPosts() {
   
   const viewPosts = () =>{
     const userId = user.id
-    axios.get("http://localhost:4000/viewprofilepost/" + userId,{
+    axios.get("/viewprofilepost/" + userId,{
       headers: {
           "x-access-token": localStorage.getItem("token"),
       },
@@ -37,7 +37,7 @@ function UserPosts() {
 
   const viewPost = (postId) => {
     console.log(postId, 'id in comment click');
-    axios.get("http://localhost:4000/postdetails/" + postId,{
+    axios.get("/postdetails/" + postId,{
       headers: {
           "x-access-token": localStorage.getItem("token"),
       },
@@ -47,7 +47,7 @@ function UserPosts() {
     }).catch((err)=>{
       navigate('/error')
   })
-    axios.get("http://localhost:4000/getcomment/"+postId,{
+    axios.get("/getcomment/"+postId,{
       headers: {
           "x-access-token": localStorage.getItem("token"),
       },
@@ -73,7 +73,7 @@ function UserPosts() {
             <div class="grid grid-cols-3 gap-2 my-3">
       {
         profilePosts.map((item, index) => (
-              <img class="block bg-center bg-no-repeat bg-cover h-40 w-60 rounded-lg cursor-pointer" src={`/images/${item.Images}`} alt='' onClick={()=>{
+              <img class="block bg-center bg-no-repeat bg-cover h-40 w-60 rounded-lg cursor-pointer" src={`${axios.images}/${item.Images}`} alt='' onClick={()=>{
                 viewPost(item._id)
               }}/>
 

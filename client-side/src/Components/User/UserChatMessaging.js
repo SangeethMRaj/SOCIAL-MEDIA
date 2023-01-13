@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../Instance/AxiosInstance';
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { format } from 'timeago.js'
@@ -10,7 +10,7 @@ function UserChatMessaging({ message, own, pic }) {
     useEffect(() => {
         try {
             if (!own) {
-                axios.get("http://localhost:4000/chatusers/" + Id, {
+                axios.get("/chatusers/" + Id, {
                     headers: {
                         "x-access-token": localStorage.getItem("token"),
                     },
@@ -35,7 +35,7 @@ function UserChatMessaging({ message, own, pic }) {
                                 <div
                                     class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0"
                                 >
-                                    {pic ? <img className='rounded-full' src={`/images/${pic}`} />
+                                    {pic ? <img className='rounded-full' src={`${axios.images}/${pic}`} />
                                         : <img className='rounded-full' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA0BrKaI0cwXl3-wpk6Fu2gMbrP1LKk6waAlhKhrTzTobcVlka34MsNf4Yp3k1tG4ufTY&usqp=CAU' />
                                     }
                                 </div>
@@ -57,7 +57,7 @@ function UserChatMessaging({ message, own, pic }) {
                                     <div
                                         class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0"
                                     >
-                                        {profilepic ? <img className='rounded-full w-10 h-10' src={`/images/${profilepic}`} />
+                                        {profilepic ? <img className='rounded-full w-10 h-10' src={`${axios.images}/${profilepic}`} />
                                             : <img className='rounded-full w-10 h-10' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA0BrKaI0cwXl3-wpk6Fu2gMbrP1LKk6waAlhKhrTzTobcVlka34MsNf4Yp3k1tG4ufTY&usqp=CAU' />
                                         }
                                     </div>

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '../Instance/AxiosInstance'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { UserContext } from '../../Pages/Context/Context'
 import ChatUsersList from './ChatUsersList'
@@ -44,7 +44,7 @@ function UserChat({ socket }) {
     useEffect(() => {
         const userId = user.id
         try {
-            axios.get("http://localhost:4000/conversation/" + userId, {
+            axios.get("/conversation/" + userId, {
                 headers: {
                     "x-access-token": localStorage.getItem("token"),
                 },
@@ -59,7 +59,7 @@ function UserChat({ socket }) {
 
     useEffect(() => {
         try {
-            axios.get("http://localhost:4000/message/" + currentChat?._id, {
+            axios.get("/message/" + currentChat?._id, {
                 headers: {
                     "x-access-token": localStorage.getItem("token"),
                 },
@@ -87,7 +87,7 @@ function UserChat({ socket }) {
         })
         try {
             if (newMessage) {
-                axios.post("http://localhost:4000/message", message, {
+                axios.post("/message", message, {
                     headers: {
                         "x-access-token": localStorage.getItem("token"),
                     },

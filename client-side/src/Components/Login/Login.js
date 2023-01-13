@@ -1,6 +1,6 @@
 import React, { useState,createContext, useContext,useEffect } from 'react'
 import {useNavigate} from 'react-router-dom'
-import axios from 'axios'
+import axios from '../Instance/AxiosInstance'
 
 function Login() {
     const navigate = useNavigate()
@@ -22,7 +22,7 @@ function Login() {
     }
 
     const authCheck = ()=>{
-      axios.get("http://localhost:4000/isUserAuth",{
+      axios.get("/isUserAuth",{
           headers: {
             "x-access-token": localStorage.getItem("token"),
           },
@@ -43,7 +43,7 @@ function Login() {
         const{email,password} = user 
         // if(email,password){
           try{
-            axios.post("http://localhost:4000/login",user).then((response)=>{
+            axios.post("/login",user).then((response)=>{
                 console.log(response.data,'response in login');
                 if(response.data.auth){
                   console.log('user',response.data.user);

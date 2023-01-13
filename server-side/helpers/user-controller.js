@@ -27,7 +27,7 @@ let Email
 module.exports = {
     doSignup: async(req, res) => {
         try{
-
+            console.log('success');
             const Email = req.body.email
             const sameEmail = await signUp.findOne({ email: Email })
             if (sameEmail) {
@@ -62,15 +62,15 @@ module.exports = {
             const user = await signUp.findOne({ email: Email })
             if (user) {
                 if (user.userStatus) {
-                    bcrypt.compare(Password, user.password).then((status) => {
-                        if (status) {
+                    bcrypt.compare(Password, user.password).then((result) => {
+                        if (result) {
                             const id=user.id
                             const name=user.username
                             const profilePic = user.Images
                             const token = jwt.sign({id,name,profilePic}, "jwtSecret", {
                                 expiresIn: '3d',
                             })
-                            res.status(200).json({auth: true, token: token, user: user});
+                            res.json({auth: true, token: token, user: user});        
                             
                         } else {
                             res.status(200).json({auth: false, message: "Wrong username password"}); 
@@ -146,6 +146,7 @@ module.exports = {
     },
     addProfilePicture:async(req,res)=>{
         try{
+            const userId = req.body.user
             await signUp.findByIdAndUpdate({_id:userId},
                 {
                     $set:{
@@ -157,7 +158,7 @@ module.exports = {
 
         }catch(err){
             res.status(500).json(err)
-        }
+        }     
         const userId = ObjectId(req.body.user)
 
     },
@@ -623,6 +624,7 @@ module.exports = {
                     $sort:{'comment.time':-1}
                 }              
             ])
+            console.log(getcomment);
             res.status(200).json(getcomment)
 
         }catch(err){

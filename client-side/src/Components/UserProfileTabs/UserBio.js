@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '../Instance/AxiosInstance'
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../../Pages/Context/Context'
@@ -25,7 +25,7 @@ function UserBio() {
         const friendId = fid
         try {
             const id = { userId, friendId }
-            axios.post("http://localhost:4000/follow", id, {
+            axios.post("/follow", id, {
                 headers: {
                     "x-access-token": localStorage.getItem("token"),
                 },
@@ -44,7 +44,7 @@ function UserBio() {
 
     useEffect(() => {
         const userId = user.id
-        axios.get("http://localhost:4000/viewallfollowing/" + userId, {
+        axios.get("/viewallfollowing/" + userId, {
             headers: {
                 "x-access-token": localStorage.getItem("token"),
             },
@@ -58,7 +58,7 @@ function UserBio() {
     useEffect(() => {
         try {
             const userId = user.id
-            axios.get("http://localhost:4000/viewprofiledetails/" + userId, {
+            axios.get("/viewprofiledetails/" + userId, {
                 headers: {
                     "x-access-token": localStorage.getItem("token"),
                 },
@@ -76,7 +76,7 @@ function UserBio() {
     useEffect(() => {
         try {
             const userId = user.id
-            axios.get("http://localhost:4000/followingcount/" + userId, {
+            axios.get("/followingcount/" + userId, {
                 headers: {
                     "x-access-token": localStorage.getItem("token"),
                 },
@@ -93,7 +93,7 @@ function UserBio() {
     useEffect(() => {
         try {
             const userId = user.id
-            axios.get("http://localhost:4000/postcount/" + userId, {
+            axios.get("/postcount/" + userId, {
                 headers: {
                     "x-access-token": localStorage.getItem("token"),
                 },
@@ -109,7 +109,7 @@ function UserBio() {
     const followersList = () => {
         try {
             const userId = user.id
-            axios.get("http://localhost:4000/followerslist/" + userId, {
+            axios.get("/followerslist/" + userId, {
                 headers: {
                     "x-access-token": localStorage.getItem("token"),
                 },
@@ -126,7 +126,7 @@ function UserBio() {
     const followingList = async (id) => {
         const userId = user.id
         console.log(userId, 'in bio');
-        await axios.get("http://localhost:4000/followinglist/" + userId, {
+        await axios.get("/followinglist/" + userId, {
             headers: {
                 "x-access-token": localStorage.getItem("token"),
             },
@@ -151,7 +151,7 @@ function UserBio() {
                 try{
                     const userId = userDetails[0]._id
                     console.log(userId);
-                     axios.post("http://localhost:4000/applyverification", userId, {
+                     axios.post("/applyverification", userId, {
                         headers: {
                             "x-access-token": localStorage.getItem("token"),
                         },
@@ -271,7 +271,7 @@ function UserBio() {
                             <div>
 
                                 <div class="gap-1 text-center ">
-                                    {userDetails[0].Images ? <img class="p-1 mx-auto  w-28 justify-content-center h-28 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src={`/images/${userDetails[0].Images}`} alt="Bordered avatar" />
+                                    {userDetails[0].Images ? <img class="p-1 mx-auto  w-28 justify-content-center h-28 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src={`${axios.images}/${userDetails[0].Images}`} alt="Bordered avatar" />
                                         : <img class="p-1 mx-auto  w-28 justify-content-center h-28 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA0BrKaI0cwXl3-wpk6Fu2gMbrP1LKk6waAlhKhrTzTobcVlka34MsNf4Yp3k1tG4ufTY&usqp=CAU' alt="Bordered avatar" />}
                                     <div className='flex justify-center'>
                                         <p class="font-serif font-semibold text-lg">{userDetails[0].username}</p>
@@ -311,7 +311,7 @@ function UserBio() {
                             navigate('/user/editprofile')
                         }} >Edit Profile</button>
 
-                        {followers>5 && userDetails[0].verification===false && <button class="bg-white border border-gray-500 px-10 py-2 rounded-full shadow-lg hover:shadow" onClick={verification}>Apply verification</button>}
+                        {followers>5 && userDetails[0].verification==false && <button class="bg-white border border-gray-500 px-10 py-2 rounded-full shadow-lg hover:shadow" onClick={verification}>Apply verification</button>}
                     </div>
 
 

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../Instance/AxiosInstance';
 import React,{useEffect, useState} from 'react'
 import {useLocation,useNavigate} from 'react-router-dom'
 import {useContext} from 'react'
@@ -30,7 +30,7 @@ function FriendProfile() {
             const userId = user.id
             const friendId = userDetails._id
             const id = {userId,friendId}
-            axios.post("http://localhost:4000/follow",id,{
+            axios.post("/follow",id,{
                 headers: {
                     "x-access-token": localStorage.getItem("token"),
                 },
@@ -52,7 +52,7 @@ function FriendProfile() {
             const userId = user.id
             const friendId = friendid
             const id = {userId,friendId}
-            axios.post("http://localhost:4000/follow",id,{
+            axios.post("/follow",id,{
                 headers: {
                     "x-access-token": localStorage.getItem("token"),
                 },
@@ -70,7 +70,7 @@ function FriendProfile() {
 
     useEffect(()=>{
         const userId = user.id
-        axios.get("http://localhost:4000/viewallfollowing/"+userId,{
+        axios.get("/viewallfollowing/"+userId,{
             headers: {
                 "x-access-token": localStorage.getItem("token"),
             },
@@ -86,7 +86,7 @@ function FriendProfile() {
         
         const userId = user.id
         const friendId = userDetails._id
-        axios.get("http://localhost:4000/statusfollow/"+userId+'/'+friendId,{
+        axios.get("/statusfollow/"+userId+'/'+friendId,{
             headers: {
                 "x-access-token": localStorage.getItem("token"),
         },
@@ -106,7 +106,7 @@ function FriendProfile() {
 
 
     const authCheck = () => {
-        axios.get("http://localhost:4000/isUserAuth",{
+        axios.get("/isUserAuth",{
             headers: {
                 "x-access-token": localStorage.getItem("token"),
             },
@@ -124,7 +124,7 @@ function FriendProfile() {
     useEffect(()=>{
         try{
             const userId = userDetails._id
-            axios.get("http://localhost:4000/followingcount/"+userId,{
+            axios.get("/followingcount/"+userId,{
                 headers: {
                     "x-access-token": localStorage.getItem("token"),
                 },
@@ -140,7 +140,7 @@ function FriendProfile() {
 
     useEffect(()=>{
         const userId = userDetails._id
-        axios.get("http://localhost:4000/postcount/"+userId,{
+        axios.get("/postcount/"+userId,{
             headers: {
                 "x-access-token": localStorage.getItem("token"),
             },
@@ -153,7 +153,7 @@ function FriendProfile() {
 
     const followersList = () => {
         const userId = userDetails._id
-        axios.get("http://localhost:4000/followerslist/" + userId,{
+        axios.get("/followerslist/" + userId,{
             headers: {
                 "x-access-token": localStorage.getItem("token"),
             },
@@ -168,7 +168,7 @@ function FriendProfile() {
     const followingList = () => {
         const friendId = userDetails._id
         const userId = user.id
-        axios.get("http://localhost:4000/followinglist/"+friendId,{
+        axios.get("/followinglist/"+friendId,{
             headers: {
                 "x-access-token": localStorage.getItem("token"),
             },
@@ -184,7 +184,7 @@ function FriendProfile() {
         const userId = user.id
         const friendId = userDetails._id
         const id={userId,friendId}
-        axios.post("http://localhost:4000/conversation",id,{
+        axios.post("/conversation",id,{
             headers: {
                 "x-access-token": localStorage.getItem("token"),
             },
@@ -286,7 +286,7 @@ function FriendProfile() {
   <div>
 
     <div class="flex flex-col gap-1 text-center ">
-        {userDetails.Images ? <img class="p-1 mx-auto  w-28 justify-content-center h-28 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src={`/images/${userDetails.Images}`} alt="Bordered avatar"/>
+        {userDetails.Images ? <img class="p-1 mx-auto  w-28 justify-content-center h-28 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src={`${axios.images}/${userDetails.Images}`} alt="Bordered avatar"/>
         :<img class="p-1 mx-auto  w-28 justify-content-center h-28 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA0BrKaI0cwXl3-wpk6Fu2gMbrP1LKk6waAlhKhrTzTobcVlka34MsNf4Yp3k1tG4ufTY&usqp=CAU' alt="Bordered avatar"/>
         }
         <p class="font-serif font-semibold">{userDetails.username}</p>

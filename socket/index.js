@@ -23,7 +23,7 @@ const io = new Server({
     !users.some((user)=>user.userId === userId) &&
     users.push({ userId,socketId,name})
  }          
-
+ 
  const removeUser = (socketId)=>{
     users = users.filter((user)=>user.socketId !== socketId)
  }

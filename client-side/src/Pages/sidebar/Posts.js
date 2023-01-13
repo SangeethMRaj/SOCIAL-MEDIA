@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '../../Components/Instance/AxiosInstance'
 import React, { useEffect, useState } from 'react'
 
 function Posts() {
@@ -8,7 +8,7 @@ function Posts() {
   const [reportInstant,setReportInstant] = useState(false)
 
   useEffect(()=>{
-    axios.get("http://localhost:4000/admin/viewposts").then((response)=>{
+    axios.get("/admin/viewposts").then((response)=>{
 
       setViewPost(response.data)
     })
@@ -19,7 +19,7 @@ function Posts() {
     const postId = Id
     try{
 
-      axios.get("http://localhost:4000/admin/reportdetails/"+postId).then((response)=>{
+      axios.get("/admin/reportdetails/"+postId).then((response)=>{
         setReportDetails(response.data)
         setReportModal(true)
       })
@@ -31,7 +31,7 @@ function Posts() {
   const reportPost = (Id) =>{
     try{
       const postId = Id
-      axios.post("http://localhost:4000/admin/reportpost/"+postId).then((response)=>{
+      axios.post("/admin/reportpost/"+postId).then((response)=>{
         setReportInstant(!reportInstant)
       })
     }catch(err){
@@ -43,7 +43,7 @@ function Posts() {
   const unReportPost = (Id)=>{
     try{
       const postId = Id
-      axios.post("http://localhost:4000/admin/unreportpost/"+postId).then((response)=>{
+      axios.post("/admin/unreportpost/"+postId).then((response)=>{
         setReportInstant(!reportInstant)
       })
     }catch(err){
@@ -93,7 +93,7 @@ function Posts() {
                     {index+1}
                 </th>
                 <th scope="row" class="py-4 px-6 item-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                   <img src={`/images/${post.Images}`} className='w-14 h-14'  alt="" />
+                   <img src={`${axios.images}/${post.Images}`} className='w-14 h-14'  alt="" />
                 </th>
                 <td class="py-4 px-6 text-center text-white">
                   {post.userId.username}

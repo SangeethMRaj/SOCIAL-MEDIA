@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import axios from '../Instance/AxiosInstance'
 import Swal from 'sweetalert2'
 import { useContext } from 'react'
 import {
@@ -57,7 +57,7 @@ function UserHeader({socket}) {
             } else {
                 setModal(false)
             }
-            axios.get("http://localhost:4000/searchuser/" + userDetails,{
+            axios.get("/searchuser/" + userDetails,{
                 headers: {
                     "x-access-token": localStorage.getItem("token"),
                 },
@@ -189,7 +189,7 @@ function UserHeader({socket}) {
                                         <Link className='flex justify-content-center cursor-pointer' to={item._id == user.id ? '/user/profile/posts' : 'friendprofile'} state={item} >
 
                                             <div class="mt-3 w-fit" >
-                                                {item.Images ? <img src={`/images/${item.Images}`} class="rounded-full w-10 h-10" alt="profile picture" srcset="" />
+                                                {item.Images ? <img src={`${axios.images}/${item.Images}`} class="rounded-full w-10 h-10" alt="profile picture" srcset="" />
                                                 :<img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA0BrKaI0cwXl3-wpk6Fu2gMbrP1LKk6waAlhKhrTzTobcVlka34MsNf4Yp3k1tG4ufTY&usqp=CAU' class="rounded-full w-10 h-10" alt="profile picture" srcset="" />
                                                 }
                                             </div>
