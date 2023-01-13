@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL:'http://localhost:4000/api'
+    baseURL:'https://xplre.online/api'
 })
 axios.interceptors.request.use(
     function(config){
@@ -12,7 +12,7 @@ axios.interceptors.request.use(
     }
 )
 
-const images='http://localhost:4000/images'
+const images='https://xplre.online/images'
 
 export default{
     get:instance.get,
