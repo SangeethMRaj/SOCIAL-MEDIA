@@ -9,9 +9,10 @@ const jwt = require('jsonwebtoken')
 
 
 app.use(express.json())
+dotenv.config()
+
 app.use(cors())
 
-dotenv.config()
 
 mongoose.connect(process.env.DATABASE_ACCESS,()=>console.log('Database is connected'))
 
