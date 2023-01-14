@@ -59,7 +59,11 @@ module.exports = {
 
             const Email = req.body.email
             const Password = req.body.password
+            console.log(
+                'gvxghas',req.body
+            );
             const user = await signUp.findOne({ email: Email })
+            console.log('yessss',user);
             if (user) {
                 if (user.userStatus) {
                     bcrypt.compare(Password, user.password).then((result) => {

@@ -9,7 +9,7 @@ function UserLayout() {
   const user = jwtdecode(localStorage.getItem('token'))
   console.log(user,'user user in header');
   useEffect(()=>{
-    setSocket(io("http://localhost:9000"))
+    setSocket(io("https://xplre.online",{path:'/socketnotification/socket.io'}))
   },[])
   
   console.log(socket,'socket in navbar');

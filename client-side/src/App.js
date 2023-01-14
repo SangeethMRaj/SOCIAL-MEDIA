@@ -27,7 +27,7 @@ import ErrorPages from './Components/ErrorPages/ErrorPages';
 import ErrorInternalServer from './Components/ErrorPages/ErrorInternalServer';
 
 
-const socketio = require('socket.io-client')("ws://localhost:8000")
+const socketio = require('socket.io-client')("https://xplre.online",{path:'/socket/socket.io'})
 
 function App() {
   const user = localStorage.getItem('token') ? jwtdecode(localStorage.getItem('token'))  : ''

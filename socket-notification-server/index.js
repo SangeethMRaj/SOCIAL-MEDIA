@@ -1,8 +1,9 @@
 const { Server } = require("socket.io");
 
 const io = new Server({ 
+    path:'/socketnotification/socket.io',
     cors:{
-        origin:"http://localhost:3000"
+        origin:"https://xplre.online"
     }
  });
 
