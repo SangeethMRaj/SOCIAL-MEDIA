@@ -2,6 +2,7 @@ import axios from "axios";
 
 const instance = axios.create({
     baseURL:'https://xplre.online/api'
+    // baseURL:'http://localhost:4000/api'
 })
 axios.interceptors.request.use(
     function(config){

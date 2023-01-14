@@ -32,6 +32,7 @@ function Login() {
               navigate('/user/home')
           }
         }).catch((err)=>{
+          console.log(err,'isuserauth');
           navigate('/error')
         })
   }
@@ -40,6 +41,7 @@ function Login() {
   },[])
 
     const submit = (e) =>{
+      console.log('yes');
         const{email,password} = user 
         // if(email,password){
           try{
@@ -64,6 +66,7 @@ function Login() {
             })
 
           }catch(err){
+            console.log(err,'submit');
             navigate('/error')
           }
         // }

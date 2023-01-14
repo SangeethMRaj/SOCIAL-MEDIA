@@ -31,7 +31,7 @@ const socketio = require('socket.io-client')("https://xplre.online",{path:'/sock
 
 function App() {
   const user = localStorage.getItem('token') ? jwtdecode(localStorage.getItem('token'))  : ''
-  console.log(user, 'userrrr');
+  // console.log(user, 'userrrr');
 
   useEffect(() => {
     socketio?.emit("addUser", user?.id,user?.name)
